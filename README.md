@@ -9,6 +9,7 @@ FROST is an experimental Windows desktop companion focused on a calm, winter-ins
 ### Implemented
 - **Desktop snowfall overlay** — transparent, click-through overlay spanning the virtual desktop.
 - **Snow controls** — change flake density and fall speed while the overlay is running.
+- **Persistent preferences** — snowfall density, speed, and enabled state are stored in the current Windows user profile.
 - **Mission Control** — live list of visible application windows; select one to switch to it.
 - **Global shortcuts** — `Ctrl + Alt + M` opens Mission Control; `Ctrl + Alt + N` toggles snowfall.
 - **Dashboard** — dark, glass-inspired application shell with navigation and quick controls.
@@ -39,6 +40,13 @@ Run these commands from the repository root:
 dotnet build .\FROST\FROST.csproj
 dotnet run --project .\FROST\FROST.csproj
 ```
+
+## Keyboard shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| `Ctrl + Alt + M` | Open Mission Control |
+| `Ctrl + Alt + N` | Toggle snowfall |
 
 ## Notes
 
