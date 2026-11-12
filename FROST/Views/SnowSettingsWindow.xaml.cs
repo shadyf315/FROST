@@ -12,6 +12,7 @@ public partial class SnowSettingsWindow : Window
     {
         _engine = engine;
         InitializeComponent();
+        GlassEngine.ApplyTo(this);
 
         _updating = true;
         DensitySlider.Value = engine.Density;
