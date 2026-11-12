@@ -1,3 +1,4 @@
+using System.IO;
 using System.Net.Http;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -56,10 +57,12 @@ public static class BackgroundImageService
                 File.Move(temporaryPath, cachePath, overwrite: true);
             }
 
+            using var imageStream = File.OpenRead(cachePath);
+
             var image = new BitmapImage();
             image.BeginInit();
             image.CacheOption = BitmapCacheOption.OnLoad;
-            image.UriSource = new Uri(cachePath, UriKind.Absolute);
+            image.StreamSource = imageStream;
             image.EndInit();
             image.Freeze();
 
