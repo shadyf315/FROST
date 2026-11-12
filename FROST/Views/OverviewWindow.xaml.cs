@@ -26,8 +26,8 @@ public partial class OverviewWindow : Window
         foreach (var window in WindowService.GetOpenWindows())
             _windows.Add(window);
 
-        WindowCount.Text = $"{_windows.Count} OPEN WINDOW{(_windows.Count == 1 ? "" : "S")}";
-        LastUpdated.Text = $"Updated {DateTime.Now:HH:mm:ss}";
+        WindowCount.Text = $"ОТКРЫТЫЕ ОКНА · {_windows.Count}";
+        LastUpdated.Text = $"Обновлено {DateTime.Now:HH:mm:ss}";
         EmptyState.Visibility = _windows.Count == 0 ? Visibility.Visible : Visibility.Collapsed;
     }
 
@@ -44,7 +44,7 @@ public partial class OverviewWindow : Window
         else
         {
             MessageBox.Show(
-                "Windows did not allow FROST to activate this window. It may have closed or changed desktops.",
+                "Не удалось переключиться на это окно. Возможно, оно уже закрыто или находится на другом виртуальном рабочем столе.",
                 "FROST",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
