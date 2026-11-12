@@ -13,13 +13,20 @@ public sealed class SnowEngine : IDisposable
     public int Density { get; private set; } = 85;
     public double Speed { get; private set; } = 1.0;
 
+    public event EventHandler? StateChanged;
+
     public void Enable()
     {
         if (_overlay is not null) return;
 
         _overlay = new SnowOverlayWindow(Density, Speed);
-        _overlay.Closed += (_, _) => _overlay = null;
+        _overlay.Closed += (_, _) =>
+        {
+            _overlay = null;
+            StateChanged?.Invoke(this, EventArgs.Empty);
+        };
         _overlay.Show();
+        StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void Disable()
@@ -27,6 +34,7 @@ public sealed class SnowEngine : IDisposable
         var overlay = _overlay;
         _overlay = null;
         overlay?.Close();
+        StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void Toggle()
@@ -40,6 +48,7 @@ public sealed class SnowEngine : IDisposable
         Density = Math.Clamp(density, 10, 220);
         Speed = Math.Clamp(speed, 0.2, 3.0);
         _overlay?.Configure(Density, Speed);
+        StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
     public void Dispose() => Disable();
