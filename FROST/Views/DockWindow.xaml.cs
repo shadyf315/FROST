@@ -35,4 +35,5 @@ public partial class DockWindow : Window
     private void Notepad_Click(object sender, RoutedEventArgs e) => Launch("notepad.exe");
     private void Calculator_Click(object sender, RoutedEventArgs e) => Launch("calc.exe");
     private void Settings_Click(object sender, RoutedEventArgs e) => Launch("ms-settings:");
+    private void Close_Click(object sender, RoutedEventArgs e) => Close();
 }
