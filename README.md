@@ -4,36 +4,50 @@
 
 FROST is an experimental Windows desktop companion focused on a calm, winter-inspired atmosphere and a more visual way to work with open windows.
 
-## Planned features
+## Features
 
-- **Snow Engine** — configurable animated snowfall overlay.
-- **Mission Control** — overview of open windows with quick switching.
+### Implemented
+- **Desktop snowfall overlay** — transparent, click-through overlay spanning the virtual desktop.
+- **Snow controls** — change flake density and fall speed while the overlay is running.
+- **Dashboard** — dark, glass-inspired application shell with navigation and quick controls.
+
+### Planned
+- **Mission Control** — visual overview of open windows with quick switching.
 - **Glass Engine** — translucent, macOS Sequoia-inspired surfaces where Windows allows.
 - **Dock** — a customizable application launcher.
-- **Settings** — central control for effects, behavior, and performance.
+- **Settings** — central control for effects, behavior, startup, and performance.
 
 ## Technology
 
 - C#
 - WPF
 - .NET 10 for Windows
-- Windows APIs (planned)
+- Windows APIs
 
 ## Requirements
 
 - Windows 10 or Windows 11
 - .NET 10 SDK
 
-## Build
+## Build and run
+
+Run these commands from the repository root:
 
 ```powershell
 dotnet build .\FROST\FROST.csproj
 dotnet run --project .\FROST\FROST.csproj
 ```
 
+## Notes
+
+- The snowfall overlay is click-through and does not intentionally capture keyboard focus or mouse input.
+- It covers the Windows virtual desktop, including multi-monitor layouts.
+- Performance depends on display resolution and selected flake density.
+- FROST is early-stage software. System-wide window styling is limited by Windows and the Desktop Window Manager; the project will use supported APIs rather than promise universal modification of third-party windows.
+
 ## Project status
 
-Early development. The first commit establishes the WPF application shell and initial dashboard. System-wide effects and real window management are being developed in separate modules.
+Early development. Features are being added incrementally and will be validated on Windows.
 
 ## License
 
