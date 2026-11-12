@@ -13,12 +13,13 @@ FROST is an experimental Windows desktop companion focused on a calm, winter-ins
 - **Mission Control** — live list of visible application windows; select one to switch to it.
 - **Global shortcuts** — `Ctrl + Alt + M` opens Mission Control; `Ctrl + Alt + N` toggles snowfall.
 - **Windows glass integration** — requests native DWM dark title bars, rounded corners, and the Windows 11 Mica system backdrop for FROST windows where supported.
+- **Dock** — a compact, always-on-top launcher for Explorer, Notepad, Calculator, and Windows Settings.
 - **Dashboard** — dark, glass-inspired application shell with navigation and quick controls.
 
 ### Planned
 - **Mission Control previews** — live window thumbnails and a spatial overview.
 - **Glass Engine expansion** — richer custom translucent surfaces and tuning for FROST-owned panels.
-- **Dock** — a customizable application launcher.
+- **Dock expansion** — custom pinned apps, running-app indicators, and display-aware placement.
 - **Settings** — central control for effects, behavior, startup, and performance.
 
 ## Technology
