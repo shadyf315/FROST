@@ -1,0 +1,65 @@
+<Window x:Class="FROST.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="FROST — Settings" Width="620" Height="560"
+        MinWidth="560" MinHeight="500" ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="#090D16" Foreground="#F2F6FC"
+        FontFamily="Segoe UI">
+    <Grid Margin="28">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel>
+            <TextBlock Text="FROST / PREFERENCES" Foreground="#8BCBFF" FontSize="10" FontWeight="Bold"/>
+            <TextBlock Text="Settings" FontSize="29" FontWeight="SemiBold" Margin="0,7,0,4"/>
+            <TextBlock Text="A few details about this FROST installation." Foreground="#91A0B4" FontSize="12"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="0,25,0,0">
+            <Border Background="#111827" BorderBrush="#202E42" BorderThickness="1" CornerRadius="15" Padding="18">
+                <Grid>
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="FROST Desktop Experience" FontSize="14" FontWeight="SemiBold"/>
+                        <TextBlock Text="Version 0.1.0 · Early access" Foreground="#8191A6" FontSize="11" Margin="0,5,0,0"/>
+                        <TextBlock Text="Built for Windows 10 and Windows 11." Foreground="#8191A6" FontSize="11" Margin="0,3,0,0"/>
+                    </StackPanel>
+                    <Border Grid.Column="1" Width="42" Height="42" CornerRadius="13" Background="#1A3047">
+                        <TextBlock Text="❄" FontSize="25" Foreground="#A9DCFF" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="KEYBOARD SHORTCUTS" Foreground="#71839B" FontSize="10" FontWeight="Bold" Margin="3,22,0,10"/>
+            <Border Background="#111827" BorderBrush="#202E42" BorderThickness="1" CornerRadius="15" Padding="17">
+                <Grid>
+                    <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
+                    <TextBlock Text="Open Mission Control" FontSize="12" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Column="1" Text="Ctrl + Alt + M" Foreground="#A9DCFF" FontSize="11" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Text="Toggle snowfall" FontSize="12" VerticalAlignment="Center" Margin="0,13,0,0"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Ctrl + Alt + N" Foreground="#A9DCFF" FontSize="11" VerticalAlignment="Center" Margin="0,13,0,0"/>
+                </Grid>
+            </Border>
+
+            <TextBlock Text="LOCAL DATA" Foreground="#71839B" FontSize="10" FontWeight="Bold" Margin="3,22,0,10"/>
+            <Border Background="#111827" BorderBrush="#202E42" BorderThickness="1" CornerRadius="15" Padding="17">
+                <Grid>
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="Settings are stored on this PC" FontSize="12" FontWeight="SemiBold"/>
+                        <TextBlock Text="%AppData%\FROST\settings.json" Foreground="#8191A6" FontSize="10" Margin="0,5,0,0"/>
+                    </StackPanel>
+                    <Button Grid.Column="1" Content="Open folder" VerticalAlignment="Center" Click="OpenFolder_Click"/>
+                </Grid>
+            </Border>
+        </StackPanel>
+
+        <Grid Grid.Row="2" Margin="0,18,0,0">
+            <TextBlock x:Name="SystemVersion" Foreground="#65758B" FontSize="10" VerticalAlignment="Center"/>
+            <Button Content="Done" HorizontalAlignment="Right" MinWidth="90" Click="Done_Click"/>
+        </Grid>
+    </Grid>
+</Window>
