@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Windows;
 using FROST.Core;
 
@@ -20,6 +21,7 @@ public partial class SnowSettingsWindow : Window
         _updating = false;
 
         RefreshState();
+        UpdateValues();
     }
 
     private void Settings_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -28,9 +30,14 @@ public partial class SnowSettingsWindow : Window
 
         var density = (int)Math.Round(DensitySlider.Value);
         var speed = Math.Round(SpeedSlider.Value, 1);
-        DensityValue.Text = $"{density} flakes";
-        SpeedValue.Text = $"{speed:0.0}×";
+        UpdateValues();
         _engine.Configure(density, speed);
+    }
+
+    private void UpdateValues()
+    {
+        DensityValue.Text = ((int)Math.Round(DensitySlider.Value)).ToString();
+        SpeedValue.Text = SpeedSlider.Value.ToString("0.0", CultureInfo.GetCultureInfo("ru-RU")) + "×";
     }
 
     private void Toggle_Click(object sender, RoutedEventArgs e)
@@ -42,10 +49,10 @@ public partial class SnowSettingsWindow : Window
     private void RefreshState()
     {
         var enabled = _engine.IsEnabled;
-        ToggleButton.Content = enabled ? "Disable snowfall" : "Enable snowfall";
+        ToggleButton.Content = enabled ? "Выключить снег" : "Включить снег";
         StatusText.Text = enabled
-            ? "Snowfall is active across your virtual desktop."
-            : "Snowfall is currently disabled.";
+            ? "Снег сейчас отображается поверх рабочего стола."
+            : "Снег выключен.";
     }
 
     private void Close_Click(object sender, RoutedEventArgs e) => Close();
