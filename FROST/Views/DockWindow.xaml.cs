@@ -15,7 +15,7 @@ public partial class DockWindow : Window
         };
     }
 
-    private void Launch(string target)
+    private void Launch(string target, string appName)
     {
         try
         {
@@ -24,16 +24,16 @@ public partial class DockWindow : Window
         catch (Exception)
         {
             MessageBox.Show(
-                $"Windows could not open {target}.",
-                "FROST Dock",
+                $"Не удалось запустить приложение: {appName}.",
+                "Панель запуска FROST",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
         }
     }
 
-    private void Explorer_Click(object sender, RoutedEventArgs e) => Launch("explorer.exe");
-    private void Notepad_Click(object sender, RoutedEventArgs e) => Launch("notepad.exe");
-    private void Calculator_Click(object sender, RoutedEventArgs e) => Launch("calc.exe");
-    private void Settings_Click(object sender, RoutedEventArgs e) => Launch("ms-settings:");
+    private void Explorer_Click(object sender, RoutedEventArgs e) => Launch("explorer.exe", "Проводник");
+    private void Notepad_Click(object sender, RoutedEventArgs e) => Launch("notepad.exe", "Блокнот");
+    private void Calculator_Click(object sender, RoutedEventArgs e) => Launch("calc.exe", "Калькулятор");
+    private void Settings_Click(object sender, RoutedEventArgs e) => Launch("ms-settings:", "Параметры Windows");
     private void Close_Click(object sender, RoutedEventArgs e) => Close();
 }
