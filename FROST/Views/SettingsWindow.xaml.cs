@@ -12,6 +12,7 @@ public partial class SettingsWindow : Window
         InitializeComponent();
         GlassEngine.ApplyTo(this);
         SystemVersion.Text = "Система: " + Environment.OSVersion.VersionString;
+        AppVersionText.Text = $"Релиз № {VersionInfo.Current}";
     }
 
     private void OpenFolder_Click(object sender, RoutedEventArgs e)
