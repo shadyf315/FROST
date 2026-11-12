@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using FROST.Core;
+using FROST.Services;
 
 namespace FROST.Views;
 
