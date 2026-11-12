@@ -1,4 +1,5 @@
 using System.Windows;
+using System.Windows.Interop;
 using FROST.Core;
 using FROST.Views;
 
@@ -7,11 +8,23 @@ namespace FROST;
 public partial class MainWindow : Window
 {
     private readonly SnowEngine _snowEngine = new();
+    private HotkeyManager? _hotkeys;
 
     public MainWindow()
     {
         InitializeComponent();
-        Closed += (_, _) => _snowEngine.Dispose();
+        SourceInitialized += (_, _) =>
+        {
+            _hotkeys = new HotkeyManager(
+                new WindowInteropHelper(this).Handle,
+                ShowMissionControl,
+                ToggleSnow);
+        };
+        Closed += (_, _) =>
+        {
+            _hotkeys?.Dispose();
+            _snowEngine.Dispose();
+        };
         UpdateSnowButton();
     }
 
@@ -36,6 +49,14 @@ public partial class MainWindow : Window
     private void MissionControl_Click(object sender, RoutedEventArgs e)
     {
         SetPage("Mission Control", "Your open windows, brought together in one overview.", "FROST / WINDOW MANAGER");
+        ShowMissionControl();
+    }
+
+    private void ShowMissionControl()
+    {
+        if (!IsVisible) Show();
+        if (WindowState == WindowState.Minimized) WindowState = WindowState.Normal;
+        Activate();
         var window = new OverviewWindow { Owner = this };
         window.ShowDialog();
     }
@@ -46,7 +67,9 @@ public partial class MainWindow : Window
     private void Settings_Click(object sender, RoutedEventArgs e) =>
         SetPage("Settings", "Make FROST feel right on your Windows desktop.", "FROST / PREFERENCES");
 
-    private void ToggleSnow_Click(object sender, RoutedEventArgs e)
+    private void ToggleSnow_Click(object sender, RoutedEventArgs e) => ToggleSnow();
+
+    private void ToggleSnow()
     {
         _snowEngine.Toggle();
         UpdateSnowButton();
