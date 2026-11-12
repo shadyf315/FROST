@@ -33,8 +33,12 @@ public partial class MainWindow : Window
         UpdateSnowButton();
     }
 
-    private void MissionControl_Click(object sender, RoutedEventArgs e) =>
+    private void MissionControl_Click(object sender, RoutedEventArgs e)
+    {
         SetPage("Mission Control", "Your open windows, brought together in one overview.", "FROST / WINDOW MANAGER");
+        var window = new OverviewWindow { Owner = this };
+        window.ShowDialog();
+    }
 
     private void Dock_Click(object sender, RoutedEventArgs e) =>
         SetPage("Dock", "A familiar launch space for the apps you use every day.", "FROST / DOCK");
