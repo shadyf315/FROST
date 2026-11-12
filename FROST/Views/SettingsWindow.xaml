@@ -48,6 +48,7 @@
             <TextBlock Text="LOCAL DATA" Foreground="#71839B" FontSize="10" FontWeight="Bold" Margin="3,22,0,10"/>
             <Border Background="#111827" BorderBrush="#202E42" BorderThickness="1" CornerRadius="15" Padding="17">
                 <Grid>
+                    <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="Auto"/></Grid.ColumnDefinitions>
                     <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Settings are stored on this PC" FontSize="12" FontWeight="SemiBold"/>
                         <TextBlock Text="%AppData%\FROST\settings.json" Foreground="#8191A6" FontSize="10" Margin="0,5,0,0"/>
