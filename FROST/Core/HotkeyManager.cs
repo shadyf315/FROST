@@ -8,43 +8,26 @@ public sealed class HotkeyManager : IDisposable
     private const int WmHotkey = 0x0312;
     private const uint ModAlt = 0x0001;
     private const uint ModControl = 0x0002;
-    private const int MissionControlId = 0xF701;
     private const int SnowToggleId = 0xF702;
 
     private readonly HwndSource _source;
-    private readonly Action _showMissionControl;
     private readonly Action _toggleSnow;
-    private bool _missionRegistered;
     private bool _snowRegistered;
 
-    public HotkeyManager(
-        IntPtr windowHandle,
-        Action showMissionControl,
-        Action toggleSnow)
+    public HotkeyManager(IntPtr windowHandle, Action toggleSnow)
     {
-        _showMissionControl = showMissionControl;
         _toggleSnow = toggleSnow;
         _source = HwndSource.FromHwnd(windowHandle);
         _source.AddHook(WindowProcedure);
-
-        _missionRegistered = RegisterHotKey(windowHandle, MissionControlId, ModControl | ModAlt, 0x4D); // Ctrl+Alt+M
         _snowRegistered = RegisterHotKey(windowHandle, SnowToggleId, ModControl | ModAlt, 0x4E); // Ctrl+Alt+N
     }
 
     private IntPtr WindowProcedure(IntPtr hwnd, int message, IntPtr wParam, IntPtr lParam, ref bool handled)
     {
-        if (message != WmHotkey) return IntPtr.Zero;
-
-        switch (wParam.ToInt32())
+        if (message == WmHotkey && wParam.ToInt32() == SnowToggleId)
         {
-            case MissionControlId:
-                _showMissionControl();
-                handled = true;
-                break;
-            case SnowToggleId:
-                _toggleSnow();
-                handled = true;
-                break;
+            _toggleSnow();
+            handled = true;
         }
 
         return IntPtr.Zero;
@@ -53,9 +36,7 @@ public sealed class HotkeyManager : IDisposable
     public void Dispose()
     {
         _source.RemoveHook(WindowProcedure);
-        var hwnd = _source.Handle;
-        if (_missionRegistered) UnregisterHotKey(hwnd, MissionControlId);
-        if (_snowRegistered) UnregisterHotKey(hwnd, SnowToggleId);
+        if (_snowRegistered) UnregisterHotKey(_source.Handle, SnowToggleId);
     }
 
     [DllImport("user32.dll", SetLastError = true)]
