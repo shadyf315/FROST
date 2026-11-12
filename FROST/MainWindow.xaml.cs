@@ -60,11 +60,11 @@ public partial class MainWindow : Window
     }
 
     private void Overview_Click(object sender, RoutedEventArgs e) =>
-        SetPage("Good evening.", "A calmer, more considered desktop starts here.", "YOUR WINDOWS, REIMAGINED");
+        SetPage("Рабочий стол", "Управляйте эффектами и окнами Windows.", "FROST / ОБЗОР");
 
     private void Snow_Click(object sender, RoutedEventArgs e)
     {
-        SetPage("Snowfall", "Tune the atmosphere and bring a little winter to your desktop.", "FROST / SNOW");
+        SetPage("Снег", "Настройте количество снежинок и скорость их падения.", "FROST / ЭФФЕКТЫ");
         var window = new SnowSettingsWindow(_snowEngine) { Owner = this };
         window.ShowDialog();
         UpdateSnowButton();
@@ -72,7 +72,7 @@ public partial class MainWindow : Window
 
     private void MissionControl_Click(object sender, RoutedEventArgs e)
     {
-        SetPage("Mission Control", "Your open windows, brought together in one overview.", "FROST / WINDOW MANAGER");
+        SetPage("Обзор окон", "Все открытые приложения в одном списке.", "FROST / ОКНА");
         ShowMissionControl();
     }
 
@@ -87,7 +87,7 @@ public partial class MainWindow : Window
 
     private void Dock_Click(object sender, RoutedEventArgs e)
     {
-        SetPage("Dock", "A familiar launch space for the apps you use every day.", "FROST / DOCK");
+        SetPage("Панель запуска", "Быстрый доступ к часто используемым приложениям.", "FROST / ЗАПУСК");
         if (_dockWindow is { IsVisible: true })
         {
             _dockWindow.Activate();
@@ -101,7 +101,7 @@ public partial class MainWindow : Window
 
     private void Settings_Click(object sender, RoutedEventArgs e)
     {
-        SetPage("Settings", "Make FROST feel right on your Windows desktop.", "FROST / PREFERENCES");
+        SetPage("Настройки", "Сведения о приложении и локальных параметрах.", "FROST / НАСТРОЙКИ");
         var window = new SettingsWindow { Owner = this };
         window.ShowDialog();
     }
@@ -116,6 +116,6 @@ public partial class MainWindow : Window
 
     private void UpdateSnowButton()
     {
-        SnowToggle.Content = _snowEngine.IsEnabled ? "Disable snowfall" : "Enable snowfall";
+        SnowToggle.Content = _snowEngine.IsEnabled ? "Выключить снег" : "Включить снег";
     }
 }
