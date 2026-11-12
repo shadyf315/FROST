@@ -11,6 +11,7 @@ public partial class MainWindow : Window
     private readonly SnowEngine _snowEngine = new();
     private readonly AppSettings _settings = SettingsService.Load();
     private HotkeyManager? _hotkeys;
+    private DockWindow? _dockWindow;
 
     public MainWindow()
     {
@@ -84,8 +85,19 @@ public partial class MainWindow : Window
         window.ShowDialog();
     }
 
-    private void Dock_Click(object sender, RoutedEventArgs e) =>
+    private void Dock_Click(object sender, RoutedEventArgs e)
+    {
         SetPage("Dock", "A familiar launch space for the apps you use every day.", "FROST / DOCK");
+        if (_dockWindow is { IsVisible: true })
+        {
+            _dockWindow.Activate();
+            return;
+        }
+
+        _dockWindow = new DockWindow { Owner = this };
+        _dockWindow.Closed += (_, _) => _dockWindow = null;
+        _dockWindow.Show();
+    }
 
     private void Settings_Click(object sender, RoutedEventArgs e) =>
         SetPage("Settings", "Make FROST feel right on your Windows desktop.", "FROST / PREFERENCES");
