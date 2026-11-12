@@ -31,16 +31,16 @@
     </Window.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="222"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
         <!-- Фоновая фотография загружается один раз и затем берётся из локального кэша. -->
         <Image x:Name="BackgroundPhoto" Grid.ColumnSpan="2"
                Stretch="UniformToFill" Opacity="0.72"
                IsHitTestVisible="False"/>
         <Border Grid.ColumnSpan="2" Background="#80111713" IsHitTestVisible="False"/>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="222"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
 
         <Border Grid.Column="0" Background="#171F19" BorderBrush="#303D32" BorderThickness="0,0,1,0">
             <DockPanel Margin="15,18">
