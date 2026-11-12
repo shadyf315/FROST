@@ -18,6 +18,15 @@ public partial class MainWindow : Window
         InitializeComponent();
         GlassEngine.ApplyTo(this);
 
+        VersionLabel.Text = $"Релиз № {VersionInfo.Current}";
+
+        Loaded += async (_, _) =>
+        {
+            var background = await BackgroundImageService.LoadAsync();
+            if (background is not null && IsLoaded)
+                BackgroundPhoto.Source = background;
+        };
+
         _snowEngine.Configure(_settings.SnowDensity, _settings.SnowSpeed);
         _snowEngine.StateChanged += SnowEngine_StateChanged;
         if (_settings.SnowEnabled)
