@@ -7,6 +7,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: frost-build-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: windows-latest
@@ -21,3 +25,16 @@ jobs:
 
       - name: Build WPF application
         run: dotnet build .\FROST\FROST.csproj --configuration Release
+
+      - name: Publish self-contained Windows x64 app
+        if: github.event_name != 'pull_request'
+        run: dotnet publish .\FROST\FROST.csproj --configuration Release --runtime win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o .\artifacts\FROST
+
+      - name: Upload Windows x64 build
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: FROST-win-x64
+          path: artifacts/FROST/
+          if-no-files-found: error
+          retention-days: 14
