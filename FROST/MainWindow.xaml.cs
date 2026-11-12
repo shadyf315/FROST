@@ -99,8 +99,12 @@ public partial class MainWindow : Window
         _dockWindow.Show();
     }
 
-    private void Settings_Click(object sender, RoutedEventArgs e) =>
+    private void Settings_Click(object sender, RoutedEventArgs e)
+    {
         SetPage("Settings", "Make FROST feel right on your Windows desktop.", "FROST / PREFERENCES");
+        var window = new SettingsWindow { Owner = this };
+        window.ShowDialog();
+    }
 
     private void ToggleSnow_Click(object sender, RoutedEventArgs e) => ToggleSnow();
 
