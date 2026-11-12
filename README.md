@@ -12,11 +12,12 @@ FROST is an experimental Windows desktop companion focused on a calm, winter-ins
 - **Persistent preferences** — snowfall density, speed, and enabled state are stored in the current Windows user profile.
 - **Mission Control** — live list of visible application windows; select one to switch to it.
 - **Global shortcuts** — `Ctrl + Alt + M` opens Mission Control; `Ctrl + Alt + N` toggles snowfall.
+- **Windows glass integration** — requests native DWM dark title bars, rounded corners, and the Windows 11 Mica system backdrop for FROST windows where supported.
 - **Dashboard** — dark, glass-inspired application shell with navigation and quick controls.
 
 ### Planned
 - **Mission Control previews** — live window thumbnails and a spatial overview.
-- **Glass Engine** — translucent, macOS Sequoia-inspired surfaces where Windows allows.
+- **Glass Engine expansion** — richer custom translucent surfaces and tuning for FROST-owned panels.
 - **Dock** — a customizable application launcher.
 - **Settings** — central control for effects, behavior, startup, and performance.
 
@@ -53,7 +54,7 @@ dotnet run --project .\FROST\FROST.csproj
 - The snowfall overlay is click-through and does not intentionally capture keyboard focus or mouse input.
 - It covers the Windows virtual desktop, including multi-monitor layouts.
 - Performance depends on display resolution and selected flake density.
-- FROST is early-stage software. System-wide window styling is limited by Windows and the Desktop Window Manager; the project will use supported APIs rather than promise universal modification of third-party windows.
+- FROST is early-stage software. System-wide window styling is limited by Windows and the Desktop Window Manager. Native DWM styling is applied only to FROST-owned windows; third-party windows are not forcibly modified.
 
 ## Project status
 
