@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Shapes;
@@ -71,7 +72,7 @@ public sealed class SnowOverlayWindow : Window
         var hwnd = new WindowInteropHelper(this).Handle;
         var style = GetWindowLong(hwnd, GwlExStyle);
         SetWindowLong(hwnd, GwlExStyle, style | WsExTransparent | WsExToolWindow | WsExNoActivate);
-        SetWindowPos(hwnd, HwndTopmost, 0, 0, 0, 0, SwpNoActivate | SwpShowWindow | 0x0001 | 0x0002 | 0x0004);
+        SetWindowPos(hwnd, HwndTopmost, 0, 0, 0, 0, SwpNoActivate | SwpShowWindow | 0x0001 | 0x0002);
     }
 
     private void StartRendering()
