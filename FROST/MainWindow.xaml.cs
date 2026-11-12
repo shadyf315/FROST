@@ -70,7 +70,7 @@ public partial class MainWindow : Window
 
     private void NetworkAvailabilityChanged(object? sender, NetworkAvailabilityEventArgs e)
     {
-        Dispatcher.BeginInvoke(UpdateSystemStatus);
+        Dispatcher.BeginInvoke(new Action(UpdateSystemStatus));
     }
 
     private void UpdateSystemStatus()
