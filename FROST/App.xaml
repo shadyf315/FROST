@@ -3,35 +3,63 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <Color x:Key="PageColor">#090D16</Color>
-        <Color x:Key="PanelColor">#111827</Color>
-        <Color x:Key="PanelLightColor">#172235</Color>
-        <Color x:Key="AccentColor">#8BCBFF</Color>
-        <Color x:Key="MutedColor">#8997AA</Color>
+        <!-- Палитра FROST: хвойный фон, клюквенный акцент, тёплое золото и лёд. -->
+        <Color x:Key="PageColor">#111713</Color>
+        <Color x:Key="SidebarColor">#171F19</Color>
+        <Color x:Key="PanelColor">#202A22</Color>
+        <Color x:Key="PanelHoverColor">#2A352B</Color>
+        <Color x:Key="BorderColor">#354236</Color>
+        <Color x:Key="AccentColor">#D6B879</Color>
+        <Color x:Key="CranberryColor">#A94F58</Color>
+        <Color x:Key="IceColor">#C5D9D5</Color>
+        <Color x:Key="MutedColor">#9AA69B</Color>
+
         <SolidColorBrush x:Key="PageBrush" Color="{StaticResource PageColor}"/>
+        <SolidColorBrush x:Key="SidebarBrush" Color="{StaticResource SidebarColor}"/>
         <SolidColorBrush x:Key="PanelBrush" Color="{StaticResource PanelColor}"/>
-        <SolidColorBrush x:Key="PanelLightBrush" Color="{StaticResource PanelLightColor}"/>
+        <SolidColorBrush x:Key="PanelHoverBrush" Color="{StaticResource PanelHoverColor}"/>
+        <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
         <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}"/>
+        <SolidColorBrush x:Key="CranberryBrush" Color="{StaticResource CranberryColor}"/>
+        <SolidColorBrush x:Key="IceBrush" Color="{StaticResource IceColor}"/>
         <SolidColorBrush x:Key="MutedBrush" Color="{StaticResource MutedColor}"/>
-        <SolidColorBrush x:Key="TextBrush" Color="#F2F6FC"/>
-        <Style TargetType="Button">
+        <SolidColorBrush x:Key="TextBrush" Color="#ECEFE8"/>
+
+        <Style TargetType="{x:Type Button}">
             <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
-            <Setter Property="Background" Value="#1A2638"/>
-            <Setter Property="BorderBrush" Value="#2B3B52"/>
+            <Setter Property="Background" Value="#29342B"/>
+            <Setter Property="BorderBrush" Value="#435044"/>
             <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="14,10"/>
-            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="13,9"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="Medium"/>
             <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border x:Name="Root" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10" Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="Root"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="7"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True"/>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="Root" Property="Background" Value="#263750"/></Trigger>
-                            <Trigger Property="IsPressed" Value="True"><Setter TargetName="Root" Property="Opacity" Value="0.78"/></Trigger>
-                            <Trigger Property="IsEnabled" Value="False"><Setter TargetName="Root" Property="Opacity" Value="0.45"/></Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Root" Property="Background" Value="#354238"/>
+                                <Setter TargetName="Root" Property="BorderBrush" Value="#65735F"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.78"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Root" Property="Opacity" Value="0.42"/>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
