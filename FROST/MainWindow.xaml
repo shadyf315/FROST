@@ -31,6 +31,12 @@
     </Window.Resources>
 
     <Grid>
+        <!-- Фоновая фотография загружается один раз и затем берётся из локального кэша. -->
+        <Image x:Name="BackgroundPhoto" Grid.ColumnSpan="2"
+               Stretch="UniformToFill" Opacity="0.72"
+               IsHitTestVisible="False"/>
+        <Border Grid.ColumnSpan="2" Background="#80111713" IsHitTestVisible="False"/>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="222"/>
             <ColumnDefinition Width="*"/>
@@ -71,7 +77,7 @@
                         <TextBlock Text="НОВОГОДНЯЯ ТЕМА" FontSize="9" Foreground="#D6B879" FontWeight="SemiBold"/>
                         <TextBlock Text="Хвоя, тёплый свет и немного зимнего настроения."
                                    TextWrapping="Wrap" Foreground="#ABB5A9" FontSize="10" Margin="0,7,0,0"/>
-                        <TextBlock Text="Версия 0.1.0 · Предварительная" Foreground="#818D82" FontSize="9" Margin="0,12,0,0"/>
+                        <TextBlock x:Name="VersionLabel" Text="Релиз № 1.0.1" Foreground="#818D82" FontSize="9" Margin="0,12,0,0"/>
                     </StackPanel>
                 </Border>
             </DockPanel>
