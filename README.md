@@ -10,6 +10,7 @@ FROST is an experimental Windows desktop companion focused on a calm, winter-ins
 - **Desktop snowfall overlay** — transparent, click-through overlay spanning the virtual desktop.
 - **Snow controls** — change flake density and fall speed while the overlay is running.
 - **Persistent preferences** — snowfall density, speed, and enabled state are stored in the current Windows user profile.
+- **Settings window** — shows keyboard shortcuts, version information, and opens the local configuration folder.
 - **Mission Control** — live list of visible application windows; select one to switch to it.
 - **Global shortcuts** — `Ctrl + Alt + M` opens Mission Control; `Ctrl + Alt + N` toggles snowfall.
 - **Windows glass integration** — requests native DWM dark title bars, rounded corners, and the Windows 11 Mica system backdrop for FROST windows where supported.
