@@ -61,27 +61,52 @@ jobs:
       - name: Build WPF application
         run: dotnet build ./FROST/FROST.csproj --configuration Release -p:Version=${{ steps.version.outputs.version }}
 
-      # Publish a self-contained folder rather than one large bundled EXE.
-      # ZIP can compress the individual runtime assemblies much more efficiently.
-      - name: Publish self-contained Windows x64 app
+      - name: Publish standalone Windows x64 app
         if: github.event_name != 'pull_request'
-        run: dotnet publish ./FROST/FROST.csproj --configuration Release --runtime win-x64 --self-contained true -p:PublishSingleFile=false -p:Version=${{ steps.version.outputs.version }} -o ./artifacts/FROST
+        run: dotnet publish ./FROST/FROST.csproj --configuration Release --runtime win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:Version=${{ steps.version.outputs.version }} -o ./artifacts/FROST-standalone
 
-      - name: Upload Windows x64 build
+      - name: Publish lightweight Windows x64 app
+        if: github.event_name != 'pull_request'
+        run: dotnet publish ./FROST/FROST.csproj --configuration Release --runtime win-x64 --self-contained false -p:PublishSingleFile=false -p:Version=${{ steps.version.outputs.version }} -o ./artifacts/FROST-lite
+
+      - name: Add runtime note to lightweight build
+        if: github.event_name != 'pull_request'
+        shell: pwsh
+        run: |
+          @"
+          FROST ${{ steps.version.outputs.version }} Lite — Windows x64
+          
+          Требуется .NET 10 Desktop Runtime (Windows x64).
+          Скачать с официального сайта:
+          https://dotnet.microsoft.com/download/dotnet/10.0
+          
+          После установки распакуйте архив и запустите FROST.exe.
+          "@ | Set-Content './artifacts/FROST-lite/ПРОЧТИ.txt' -Encoding utf8
+
+      - name: Upload standalone build
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
         with:
-          name: FROST-${{ steps.version.outputs.version }}-win-x64
-          path: artifacts/FROST/
+          name: FROST-${{ steps.version.outputs.version }}-standalone-win-x64
+          path: artifacts/FROST-standalone/
           if-no-files-found: error
           retention-days: 14
 
-      - name: Create release archive
+      - name: Upload lightweight build
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: FROST-${{ steps.version.outputs.version }}-lite-win-x64
+          path: artifacts/FROST-lite/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Create release archives
         if: github.event_name == 'push'
         shell: pwsh
         run: |
-          $archive = './artifacts/FROST-${{ steps.version.outputs.version }}-win-x64.zip'
-          Compress-Archive -Path './artifacts/FROST/*' -DestinationPath $archive -CompressionLevel Optimal -Force
+          Compress-Archive -Path './artifacts/FROST-standalone/*' -DestinationPath './artifacts/FROST-${{ steps.version.outputs.version }}-standalone-win-x64.zip' -CompressionLevel Optimal -Force
+          Compress-Archive -Path './artifacts/FROST-lite/*' -DestinationPath './artifacts/FROST-${{ steps.version.outputs.version }}-lite-win-x64.zip' -CompressionLevel Optimal -Force
 
       - name: Publish GitHub release
         if: github.event_name == 'push'
@@ -92,4 +117,6 @@ jobs:
           target_commitish: ${{ github.sha }}
           prerelease: true
           generate_release_notes: true
-          files: artifacts/FROST-${{ steps.version.outputs.version }}-win-x64.zip
+          files: |
+            artifacts/FROST-${{ steps.version.outputs.version }}-standalone-win-x64.zip
+            artifacts/FROST-${{ steps.version.outputs.version }}-lite-win-x64.zip

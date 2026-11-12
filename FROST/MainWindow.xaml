@@ -28,49 +28,19 @@
             <Setter Property="FontSize" Value="10"/>
             <Setter Property="FontWeight" Value="SemiBold"/>
         </Style>
-        <Style x:Key="DockButton" TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Padding" Value="8,5"/>
-            <Setter Property="Margin" Value="3,0"/>
-            <Setter Property="MinWidth" Value="72"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border x:Name="DockItem" Background="{TemplateBinding Background}"
-                                CornerRadius="10" Padding="{TemplateBinding Padding}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="DockItem" Property="Background" Value="#39483C"/>
-                                <Setter TargetName="DockItem" Property="RenderTransform">
-                                    <Setter.Value><TranslateTransform Y="-4"/></Setter.Value>
-                                </Setter>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="DockItem" Property="Opacity" Value="0.72"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
     </Window.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="42"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="104"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="222"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Image x:Name="BackgroundPhoto" Grid.RowSpan="3" Grid.ColumnSpan="2"
+        <Image x:Name="BackgroundPhoto" Grid.RowSpan="2" Grid.ColumnSpan="2"
                Stretch="UniformToFill" Opacity="0.72" IsHitTestVisible="False"/>
         <Border Grid.RowSpan="3" Grid.ColumnSpan="2" Background="#80111713" IsHitTestVisible="False"/>
 
@@ -207,7 +177,7 @@
                             </Border>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0,12,0">
                                 <TextBlock Text="Снег на рабочем столе" FontSize="14" FontWeight="SemiBold"/>
-                                <TextBlock Text="Количество снежинок и скорость падения"
+                                <TextBlock Text="Снежинки падают на экран, а на верхних кромках окон лежат снежные шапки."
                                            Foreground="#A3ADA2" FontSize="10" Margin="0,4,0,0"/>
                             </StackPanel>
                             <Button x:Name="SnowToggle" Grid.Column="2" Content="Включить"
@@ -235,56 +205,5 @@
             </ScrollViewer>
         </Grid>
 
-        <!-- Постоянная панель приложений внизу окна. -->
-        <Border Grid.Row="2" Grid.ColumnSpan="2" Background="#A7111713"
-                BorderBrush="#353D463A" BorderThickness="0,1,0,0">
-            <Border Background="#E91D281F" BorderBrush="#76616D5B" BorderThickness="1"
-                    CornerRadius="17" Padding="7,5" HorizontalAlignment="Center"
-                    VerticalAlignment="Center" MaxWidth="620">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Style="{StaticResource DockButton}" ToolTip="Проводник" Click="Explorer_Click">
-                        <StackPanel>
-                            <Border Width="42" Height="42" CornerRadius="11" Background="#D5A94F">
-                                <TextBlock Text="▰" FontSize="24" Foreground="#283126" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <TextBlock Text="Файлы" FontSize="9" Foreground="#E5E9DF" HorizontalAlignment="Center" Margin="0,4,0,0"/>
-                        </StackPanel>
-                    </Button>
-                    <Button Style="{StaticResource DockButton}" ToolTip="Браузер" Click="Browser_Click">
-                        <StackPanel>
-                            <Border Width="42" Height="42" CornerRadius="11" Background="#567D9C">
-                                <TextBlock Text="◎" FontSize="28" Foreground="#EAF2F4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <TextBlock Text="Браузер" FontSize="9" Foreground="#E5E9DF" HorizontalAlignment="Center" Margin="0,4,0,0"/>
-                        </StackPanel>
-                    </Button>
-                    <Button Style="{StaticResource DockButton}" ToolTip="Блокнот" Click="Notepad_Click">
-                        <StackPanel>
-                            <Border Width="42" Height="42" CornerRadius="11" Background="#C4D7D8">
-                                <TextBlock Text="▤" FontSize="23" Foreground="#34444A" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <TextBlock Text="Блокнот" FontSize="9" Foreground="#E5E9DF" HorizontalAlignment="Center" Margin="0,4,0,0"/>
-                        </StackPanel>
-                    </Button>
-                    <Button Style="{StaticResource DockButton}" ToolTip="Калькулятор" Click="Calculator_Click">
-                        <StackPanel>
-                            <Border Width="42" Height="42" CornerRadius="11" Background="#A5B39A">
-                                <TextBlock Text="▦" FontSize="23" Foreground="#263126" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <TextBlock Text="Калькулятор" FontSize="9" Foreground="#E5E9DF" HorizontalAlignment="Center" Margin="0,4,0,0"/>
-                        </StackPanel>
-                    </Button>
-                    <Border Width="1" Height="45" Background="#526052" VerticalAlignment="Center" Margin="7,0"/>
-                    <Button Style="{StaticResource DockButton}" ToolTip="Настроить снег" Click="Snow_Click">
-                        <StackPanel>
-                            <Border Width="42" Height="42" CornerRadius="11" Background="#465B68">
-                                <TextBlock Text="❄" FontSize="24" Foreground="#E5F1F1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <TextBlock Text="Снег" FontSize="9" Foreground="#E5E9DF" HorizontalAlignment="Center" Margin="0,4,0,0"/>
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
-            </Border>
-        </Border>
     </Grid>
 </Window>

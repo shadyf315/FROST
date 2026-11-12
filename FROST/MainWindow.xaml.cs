@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Globalization;
 using System.Net.NetworkInformation;
 using System.Windows;
@@ -127,24 +126,4 @@ public partial class MainWindow : Window
         SnowToggle.Content = _snowEngine.IsEnabled ? "Выключить" : "Включить";
     }
 
-    private static void Launch(string target, string name)
-    {
-        try
-        {
-            Process.Start(new ProcessStartInfo(target) { UseShellExecute = true });
-        }
-        catch (Exception)
-        {
-            MessageBox.Show(
-                $"Не удалось запустить приложение «{name}».",
-                "FROST",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-        }
-    }
-
-    private void Explorer_Click(object sender, RoutedEventArgs e) => Launch("explorer.exe", "Проводник");
-    private void Browser_Click(object sender, RoutedEventArgs e) => Launch("https://www.google.com", "Браузер");
-    private void Notepad_Click(object sender, RoutedEventArgs e) => Launch("notepad.exe", "Блокнот");
-    private void Calculator_Click(object sender, RoutedEventArgs e) => Launch("calc.exe", "Калькулятор");
 }
