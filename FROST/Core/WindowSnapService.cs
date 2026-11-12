@@ -24,10 +24,9 @@ public sealed class WindowSnapService : IDisposable
     private const int RestoreMoveThreshold = 5;
     private const int WindowGap = 8;
 
-    private readonly DispatcherTimer _timer = new()
+    private readonly DispatcherTimer _timer = new(DispatcherPriority.Background)
     {
-        Interval = TimeSpan.FromMilliseconds(16),
-        Priority = DispatcherPriority.Background
+        Interval = TimeSpan.FromMilliseconds(16)
     };
     private readonly SnapPreviewWindow _preview = new();
     private readonly Dictionary<IntPtr, NativeRect> _restoreBounds = [];
