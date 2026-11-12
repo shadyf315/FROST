@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Interop;
 using FROST.Core;
+using FROST.Services;
 using FROST.Views;
 
 namespace FROST;
@@ -8,11 +9,18 @@ namespace FROST;
 public partial class MainWindow : Window
 {
     private readonly SnowEngine _snowEngine = new();
+    private readonly AppSettings _settings = SettingsService.Load();
     private HotkeyManager? _hotkeys;
 
     public MainWindow()
     {
         InitializeComponent();
+
+        _snowEngine.Configure(_settings.SnowDensity, _settings.SnowSpeed);
+        _snowEngine.StateChanged += SnowEngine_StateChanged;
+        if (_settings.SnowEnabled)
+            _snowEngine.Enable();
+
         SourceInitialized += (_, _) =>
         {
             _hotkeys = new HotkeyManager(
@@ -20,11 +28,25 @@ public partial class MainWindow : Window
                 ShowMissionControl,
                 ToggleSnow);
         };
+
         Closed += (_, _) =>
         {
+            _settings.SnowEnabled = _snowEngine.IsEnabled;
+            SettingsService.Save(_settings);
+            _snowEngine.StateChanged -= SnowEngine_StateChanged;
             _hotkeys?.Dispose();
             _snowEngine.Dispose();
         };
+
+        UpdateSnowButton();
+    }
+
+    private void SnowEngine_StateChanged(object? sender, EventArgs e)
+    {
+        _settings.SnowDensity = _snowEngine.Density;
+        _settings.SnowSpeed = _snowEngine.Speed;
+        _settings.SnowEnabled = _snowEngine.IsEnabled;
+        SettingsService.Save(_settings);
         UpdateSnowButton();
     }
 
