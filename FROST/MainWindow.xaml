@@ -36,10 +36,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Фоновая фотография загружается один раз и затем берётся из локального кэша. -->
         <Image x:Name="BackgroundPhoto" Grid.ColumnSpan="2"
-               Stretch="UniformToFill" Opacity="0.72"
-               IsHitTestVisible="False"/>
+               Stretch="UniformToFill" Opacity="0.72" IsHitTestVisible="False"/>
         <Border Grid.ColumnSpan="2" Background="#80111713" IsHitTestVisible="False"/>
 
         <Border Grid.Column="0" Background="#171F19" BorderBrush="#303D32" BorderThickness="0,0,1,0">
@@ -60,15 +58,10 @@
                         </StackPanel>
                     </Grid>
 
-                    <TextBlock Text="НАВИГАЦИЯ" Style="{StaticResource SectionLabel}" Margin="11,0,0,8"/>
-                    <Button x:Name="OverviewNav" Style="{StaticResource NavButton}" Content="▦   Рабочий стол"
+                    <TextBlock Text="РАЗДЕЛЫ" Style="{StaticResource SectionLabel}" Margin="11,0,0,8"/>
+                    <Button x:Name="OverviewNav" Style="{StaticResource NavButton}" Content="⌂   Главная"
                             Background="#392B2A" BorderBrush="#66444A" Foreground="#E9C9B5" Click="Overview_Click"/>
                     <Button Style="{StaticResource NavButton}" Content="❄   Снег" Click="Snow_Click"/>
-                    <Button Style="{StaticResource NavButton}" Content="▤   Обзор окон" Click="MissionControl_Click"/>
-                    <Button Style="{StaticResource NavButton}" Content="⊞   Панель запуска" Click="Dock_Click"/>
-
-                    <TextBlock Text="ПРИЛОЖЕНИЕ" Style="{StaticResource SectionLabel}" Margin="11,25,0,8"/>
-                    <Button Style="{StaticResource NavButton}" Content="⚙   Настройки" Click="Settings_Click"/>
                 </StackPanel>
 
                 <Border DockPanel.Dock="Bottom" Background="#202A22" BorderBrush="#354236"
@@ -77,7 +70,7 @@
                         <TextBlock Text="НОВОГОДНЯЯ ТЕМА" FontSize="9" Foreground="#D6B879" FontWeight="SemiBold"/>
                         <TextBlock Text="Хвоя, тёплый свет и немного зимнего настроения."
                                    TextWrapping="Wrap" Foreground="#ABB5A9" FontSize="10" Margin="0,7,0,0"/>
-                        <TextBlock x:Name="VersionLabel" Text="Релиз № 1.0.1" Foreground="#818D82" FontSize="9" Margin="0,12,0,0"/>
+                        <TextBlock x:Name="VersionLabel" Text="Релиз № 1.0.2" Foreground="#818D82" FontSize="9" Margin="0,12,0,0"/>
                     </StackPanel>
                 </Border>
             </DockPanel>
@@ -91,15 +84,15 @@
 
             <Grid Grid.Row="0" Margin="0,0,0,23">
                 <StackPanel>
-                    <TextBlock x:Name="PageEyebrow" Text="FROST / ОБЗОР" Foreground="#D6B879" FontSize="10" FontWeight="SemiBold"/>
-                    <TextBlock x:Name="PageTitle" Text="Рабочий стол" FontSize="28" FontWeight="SemiBold" Margin="0,7,0,3"/>
-                    <TextBlock x:Name="PageSubtitle" Text="Управляйте эффектами и окнами Windows." Foreground="#A3ADA2" FontSize="12"/>
+                    <TextBlock x:Name="PageEyebrow" Text="FROST / ГЛАВНАЯ" Foreground="#D6B879" FontSize="10" FontWeight="SemiBold"/>
+                    <TextBlock x:Name="PageTitle" Text="Главная" FontSize="28" FontWeight="SemiBold" Margin="0,7,0,3"/>
+                    <TextBlock x:Name="PageSubtitle" Text="Настройте зимнее оформление рабочего стола." Foreground="#A3ADA2" FontSize="12"/>
                 </StackPanel>
                 <Border HorizontalAlignment="Right" VerticalAlignment="Top" Background="#26352A"
                         BorderBrush="#465744" BorderThickness="1" CornerRadius="6" Padding="10,7">
                     <StackPanel Orientation="Horizontal">
                         <Ellipse Width="7" Height="7" Fill="#93B78D" VerticalAlignment="Center" Margin="0,0,7,0"/>
-                        <TextBlock Text="ПРИЛОЖЕНИЕ АКТИВНО" FontSize="9" Foreground="#DCE5D5" FontWeight="SemiBold"/>
+                        <TextBlock Text="РАБОТАЕТ" FontSize="9" Foreground="#DCE5D5" FontWeight="SemiBold"/>
                     </StackPanel>
                 </Border>
             </Grid>
@@ -115,9 +108,9 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel VerticalAlignment="Center" MaxWidth="560">
                                 <TextBlock Text="ЗИМНИЙ РЕЖИМ" Foreground="#D28C86" FontSize="10" FontWeight="SemiBold"/>
-                                <TextBlock Text="Настроение праздника — без лишнего шума."
+                                <TextBlock Text="Зима начинается с рабочего стола."
                                            FontSize="23" FontWeight="SemiBold" Margin="0,10,0,7" TextWrapping="Wrap"/>
-                                <TextBlock Text="Включайте снег на рабочем столе, переключайтесь между окнами и запускайте нужные приложения из одной панели."
+                                <TextBlock Text="Включите снег и настройте его под себя. Все основные параметры доступны здесь."
                                            TextWrapping="Wrap" Foreground="#B0BAAE" FontSize="12" LineHeight="19"/>
                                 <Button Content="Настроить снег" HorizontalAlignment="Left" Margin="0,17,0,0"
                                         Background="#D6B879" Foreground="#20251D" BorderBrush="#D6B879"
@@ -134,51 +127,34 @@
                         </Grid>
                     </Border>
 
-                    <TextBlock Text="БЫСТРЫЙ ДОСТУП" Style="{StaticResource SectionLabel}" Margin="2,5,0,10"/>
-                    <UniformGrid Columns="2" Rows="1" Margin="0,0,0,16">
-                        <Border Style="{StaticResource PanelBorder}" Margin="0,0,7,0">
-                            <StackPanel>
-                                <Grid>
-                                    <TextBlock Text="❄" FontSize="20" Foreground="#C5D9D5"/>
-                                    <TextBlock Text="01" HorizontalAlignment="Right" Foreground="#879387" FontSize="10"/>
-                                </Grid>
-                                <TextBlock Text="Снег на рабочем столе" FontSize="15" FontWeight="SemiBold" Margin="0,12,0,4"/>
-                                <TextBlock Text="Настройка количества снежинок и скорости падения."
-                                           Foreground="#A3ADA2" FontSize="10" TextWrapping="Wrap"/>
-                                <Button x:Name="SnowToggle" Content="Включить снег" HorizontalAlignment="Left"
-                                        Margin="0,15,0,0" Click="ToggleSnow_Click"/>
-                            </StackPanel>
-                        </Border>
-                        <Border Style="{StaticResource PanelBorder}" Margin="7,0,0,0">
-                            <StackPanel>
-                                <Grid>
-                                    <TextBlock Text="▤" FontSize="20" Foreground="#D6B879"/>
-                                    <TextBlock Text="02" HorizontalAlignment="Right" Foreground="#879387" FontSize="10"/>
-                                </Grid>
-                                <TextBlock Text="Обзор открытых окон" FontSize="15" FontWeight="SemiBold" Margin="0,12,0,4"/>
-                                <TextBlock Text="Список открытых окон с быстрым переключением между ними."
-                                           Foreground="#A3ADA2" FontSize="10" TextWrapping="Wrap"/>
-                                <Button Content="Открыть обзор" HorizontalAlignment="Left"
-                                        Margin="0,15,0,0" Click="MissionControl_Click"/>
-                            </StackPanel>
-                        </Border>
-                    </UniformGrid>
-
-                    <TextBlock Text="СОЧЕТАНИЯ КЛАВИШ" Style="{StaticResource SectionLabel}" Margin="2,4,0,10"/>
-                    <Border Style="{StaticResource PanelBorder}" Padding="15">
+                    <TextBlock Text="УПРАВЛЕНИЕ" Style="{StaticResource SectionLabel}" Margin="2,5,0,10"/>
+                    <Border Style="{StaticResource PanelBorder}">
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="42"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Открыть обзор окон" FontSize="11"/>
-                            <TextBlock Grid.Column="1" Text="Ctrl + Alt + M" Foreground="#D6B879" FontSize="10"/>
-                            <TextBlock Grid.Row="1" Text="Включить или выключить снег" FontSize="11" Margin="0,10,0,0"/>
-                            <TextBlock Grid.Row="1" Grid.Column="1" Text="Ctrl + Alt + N" Foreground="#D6B879" FontSize="10" Margin="0,10,0,0"/>
+                            <Border Width="34" Height="34" CornerRadius="8" Background="#344333">
+                                <TextBlock Text="❄" FontSize="20" Foreground="#C5D9D5"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0,12,0">
+                                <TextBlock Text="Снег на рабочем столе" FontSize="14" FontWeight="SemiBold"/>
+                                <TextBlock Text="Количество снежинок и скорость падения"
+                                           Foreground="#A3ADA2" FontSize="10" Margin="0,4,0,0"/>
+                            </StackPanel>
+                            <Button x:Name="SnowToggle" Grid.Column="2" Content="Включить"
+                                    VerticalAlignment="Center" Click="ToggleSnow_Click"/>
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Text="СОЧЕТАНИЕ КЛАВИШ" Style="{StaticResource SectionLabel}" Margin="2,18,0,10"/>
+                    <Border Style="{StaticResource PanelBorder}" Padding="15">
+                        <Grid>
+                            <TextBlock Text="Включить или выключить снег" FontSize="11" VerticalAlignment="Center"/>
+                            <TextBlock Text="Ctrl + Alt + N" HorizontalAlignment="Right"
+                                       Foreground="#D6B879" FontSize="10" VerticalAlignment="Center"/>
                         </Grid>
                     </Border>
                 </StackPanel>
