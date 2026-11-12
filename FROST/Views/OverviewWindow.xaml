@@ -1,38 +1,43 @@
 <Window x:Class="FROST.Views.OverviewWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="FROST — Mission Control" Width="900" Height="650"
+        Title="FROST — Обзор окон" Width="900" Height="650"
         MinWidth="700" MinHeight="500"
         WindowStartupLocation="CenterOwner"
-        Background="#090D16" Foreground="#F2F6FC"
+        Background="#111713" Foreground="#ECEFE8"
         FontFamily="Segoe UI">
     <Window.Resources>
-        <Style TargetType="ListBox">
+        <Style TargetType="{x:Type ListBox}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderThickness" Value="0"/>
             <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
         </Style>
-        <Style TargetType="ListBoxItem">
+        <Style TargetType="{x:Type ListBoxItem}">
             <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="Margin" Value="0,0,0,9"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border x:Name="ItemBorder" Background="{TemplateBinding Background}" CornerRadius="13" Padding="0">
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="ItemBorder" Background="{TemplateBinding Background}" CornerRadius="8">
                             <ContentPresenter/>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True"><Setter TargetName="ItemBorder" Property="Background" Value="#1A2A3E"/></Trigger>
-                            <Trigger Property="IsSelected" Value="True"><Setter TargetName="ItemBorder" Property="Background" Value="#203750"/></Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#29372B"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#3A3330"/>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </Window.Resources>
-    <Grid Margin="28">
+
+    <Grid Margin="27">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -42,37 +47,38 @@
 
         <Grid>
             <StackPanel>
-                <TextBlock Text="FROST / WINDOW MANAGER" Foreground="#8BCBFF" FontSize="10" FontWeight="Bold"/>
-                <TextBlock Text="Mission Control" FontSize="29" FontWeight="SemiBold" Margin="0,7,0,4"/>
-                <TextBlock Text="Select a window to bring it to the front." Foreground="#91A0B4" FontSize="12"/>
+                <TextBlock Text="FROST / ОКНА" Foreground="#D6B879" FontSize="10" FontWeight="SemiBold"/>
+                <TextBlock Text="Обзор окон" FontSize="27" FontWeight="SemiBold" Margin="0,7,0,4"/>
+                <TextBlock Text="Выберите окно, чтобы перейти к нему." Foreground="#A3ADA2" FontSize="12"/>
             </StackPanel>
-            <Button Content="↻  Refresh" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Refresh_Click"/>
+            <Button Content="↻  Обновить" HorizontalAlignment="Right" VerticalAlignment="Center" Click="Refresh_Click"/>
         </Grid>
 
-        <Grid Grid.Row="1" Margin="0,23,0,12">
-            <TextBlock x:Name="WindowCount" Text="OPEN WINDOWS" Foreground="#71839B" FontSize="10" FontWeight="Bold"/>
-            <TextBlock x:Name="LastUpdated" HorizontalAlignment="Right" Foreground="#64758B" FontSize="10"/>
+        <Grid Grid.Row="1" Margin="0,22,0,12">
+            <TextBlock x:Name="WindowCount" Text="ОТКРЫТЫЕ ОКНА" Foreground="#9AA69B" FontSize="10" FontWeight="SemiBold"/>
+            <TextBlock x:Name="LastUpdated" HorizontalAlignment="Right" Foreground="#879387" FontSize="10"/>
         </Grid>
 
         <Grid Grid.Row="2">
             <ListBox x:Name="WindowList" SelectionChanged="WindowList_SelectionChanged">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="#111827" BorderBrush="#202E42" BorderThickness="1" CornerRadius="13" Padding="15">
+                        <Border Background="#202A22" BorderBrush="#354236" BorderThickness="1" CornerRadius="8" Padding="14">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="42"/>
+                                    <ColumnDefinition Width="40"/>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Border Width="38" Height="38" CornerRadius="11" Background="#1A3047">
-                                    <TextBlock Text="▣" Foreground="#A9DCFF" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border Width="34" Height="34" CornerRadius="7" Background="#344333">
+                                    <TextBlock Text="▣" Foreground="#D6B879" FontSize="17"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="13,0,10,0">
-                                    <TextBlock Text="{Binding Title}" FontSize="13" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
-                                    <TextBlock Text="{Binding ProcessName}" Foreground="#8191A6" FontSize="10" Margin="0,4,0,0"/>
+                                <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="12,0,10,0">
+                                    <TextBlock Text="{Binding Title}" FontSize="12" FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Text="{Binding ProcessName}" Foreground="#9AA69B" FontSize="10" Margin="0,4,0,0"/>
                                 </StackPanel>
-                                <TextBlock Grid.Column="2" Text="↗" FontSize="18" Foreground="#8BCBFF" VerticalAlignment="Center" Margin="8,0,4,0"/>
+                                <TextBlock Grid.Column="2" Text="↗" FontSize="17" Foreground="#D6B879" VerticalAlignment="Center" Margin="8,0,4,0"/>
                             </Grid>
                         </Border>
                     </DataTemplate>
@@ -80,15 +86,15 @@
             </ListBox>
 
             <StackPanel x:Name="EmptyState" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
-                <TextBlock Text="▦" FontSize="42" Foreground="#526B84" HorizontalAlignment="Center"/>
-                <TextBlock Text="No open windows found" FontSize="16" FontWeight="SemiBold" Margin="0,12,0,5" HorizontalAlignment="Center"/>
-                <TextBlock Text="Open an app and refresh this overview." Foreground="#8191A6" FontSize="11" HorizontalAlignment="Center"/>
+                <TextBlock Text="▤" FontSize="38" Foreground="#718071" HorizontalAlignment="Center"/>
+                <TextBlock Text="Открытых окон не найдено" FontSize="15" FontWeight="SemiBold" Margin="0,12,0,5" HorizontalAlignment="Center"/>
+                <TextBlock Text="Откройте приложение и обновите список." Foreground="#9AA69B" FontSize="11" HorizontalAlignment="Center"/>
             </StackPanel>
         </Grid>
 
-        <Grid Grid.Row="3" Margin="0,15,0,0">
-            <TextBlock Text="Click any window to switch to it." Foreground="#71839B" FontSize="10" VerticalAlignment="Center"/>
-            <Button Content="Done" HorizontalAlignment="Right" MinWidth="90" Click="Done_Click"/>
+        <Grid Grid.Row="3" Margin="0,14,0,0">
+            <TextBlock Text="Нажмите на строку, чтобы переключиться на окно." Foreground="#9AA69B" FontSize="10" VerticalAlignment="Center"/>
+            <Button Content="Закрыть" HorizontalAlignment="Right" MinWidth="90" Click="Done_Click"/>
         </Grid>
     </Grid>
 </Window>
