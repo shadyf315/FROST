@@ -11,7 +11,6 @@ public partial class MainWindow : Window
     private readonly SnowEngine _snowEngine = new();
     private readonly AppSettings _settings = SettingsService.Load();
     private HotkeyManager? _hotkeys;
-    private DockWindow? _dockWindow;
 
     public MainWindow()
     {
@@ -36,7 +35,6 @@ public partial class MainWindow : Window
         {
             _hotkeys = new HotkeyManager(
                 new WindowInteropHelper(this).Handle,
-                ShowMissionControl,
                 ToggleSnow);
         };
 
@@ -69,50 +67,14 @@ public partial class MainWindow : Window
     }
 
     private void Overview_Click(object sender, RoutedEventArgs e) =>
-        SetPage("Рабочий стол", "Управляйте эффектами и окнами Windows.", "FROST / ОБЗОР");
+        SetPage("Главная", "Настройте зимнее оформление рабочего стола.", "FROST / ГЛАВНАЯ");
 
     private void Snow_Click(object sender, RoutedEventArgs e)
     {
-        SetPage("Снег", "Настройте количество снежинок и скорость их падения.", "FROST / ЭФФЕКТЫ");
+        SetPage("Снег", "Настройте количество снежинок и скорость их падения.", "FROST / СНЕГ");
         var window = new SnowSettingsWindow(_snowEngine) { Owner = this };
         window.ShowDialog();
         UpdateSnowButton();
-    }
-
-    private void MissionControl_Click(object sender, RoutedEventArgs e)
-    {
-        SetPage("Обзор окон", "Все открытые приложения в одном списке.", "FROST / ОКНА");
-        ShowMissionControl();
-    }
-
-    private void ShowMissionControl()
-    {
-        if (!IsVisible) Show();
-        if (WindowState == WindowState.Minimized) WindowState = WindowState.Normal;
-        Activate();
-        var window = new OverviewWindow { Owner = this };
-        window.ShowDialog();
-    }
-
-    private void Dock_Click(object sender, RoutedEventArgs e)
-    {
-        SetPage("Панель запуска", "Быстрый доступ к часто используемым приложениям.", "FROST / ЗАПУСК");
-        if (_dockWindow is { IsVisible: true })
-        {
-            _dockWindow.Activate();
-            return;
-        }
-
-        _dockWindow = new DockWindow { Owner = this };
-        _dockWindow.Closed += (_, _) => _dockWindow = null;
-        _dockWindow.Show();
-    }
-
-    private void Settings_Click(object sender, RoutedEventArgs e)
-    {
-        SetPage("Настройки", "Сведения о приложении и локальных параметрах.", "FROST / НАСТРОЙКИ");
-        var window = new SettingsWindow { Owner = this };
-        window.ShowDialog();
     }
 
     private void ToggleSnow_Click(object sender, RoutedEventArgs e) => ToggleSnow();
@@ -125,6 +87,6 @@ public partial class MainWindow : Window
 
     private void UpdateSnowButton()
     {
-        SnowToggle.Content = _snowEngine.IsEnabled ? "Выключить снег" : "Включить снег";
+        SnowToggle.Content = _snowEngine.IsEnabled ? "Выключить" : "Включить";
     }
 }
