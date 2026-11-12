@@ -15,6 +15,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        GlassEngine.ApplyTo(this);
 
         _snowEngine.Configure(_settings.SnowDensity, _settings.SnowSpeed);
         _snowEngine.StateChanged += SnowEngine_StateChanged;
