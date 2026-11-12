@@ -11,7 +11,7 @@ public partial class SettingsWindow : Window
     {
         InitializeComponent();
         GlassEngine.ApplyTo(this);
-        SystemVersion.Text = Environment.OSVersion.VersionString;
+        SystemVersion.Text = "Система: " + Environment.OSVersion.VersionString;
     }
 
     private void OpenFolder_Click(object sender, RoutedEventArgs e)
@@ -27,7 +27,7 @@ public partial class SettingsWindow : Window
         }
         catch (Exception)
         {
-            MessageBox.Show("Could not open the FROST settings folder.", "FROST",
+            MessageBox.Show("Не удалось открыть папку настроек FROST.", "FROST",
                 MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
