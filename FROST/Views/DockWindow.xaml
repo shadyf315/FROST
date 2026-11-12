@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="FROST Dock" Width="390" Height="94"
         WindowStyle="None" AllowsTransparency="True" Background="Transparent"
-        ResizeMode="NoResize" ShowInTaskbar="False" ShowActivated="True"
+        ResizeMode="NoResize" ShowInTaskbar="False" ShowActivated="False"
         Topmost="True" WindowStartupLocation="Manual"
         FontFamily="Segoe UI">
     <Border Background="#E9162233" BorderBrush="#526E8CA8" BorderThickness="1"
@@ -11,7 +11,7 @@
         <Border.Effect>
             <DropShadowEffect BlurRadius="22" ShadowDepth="5" Opacity="0.38"/>
         </Border.Effect>
-        <UniformGrid Columns="4">
+        <UniformGrid Columns="5">
             <Button Background="Transparent" BorderThickness="0" Padding="5" Click="Explorer_Click">
                 <StackPanel>
                     <TextBlock Text="📁" FontSize="25" HorizontalAlignment="Center"/>
@@ -34,6 +34,12 @@
                 <StackPanel>
                     <TextBlock Text="⚙" FontSize="25" Foreground="#B8DFFF" HorizontalAlignment="Center"/>
                     <TextBlock Text="Settings" FontSize="10" Foreground="#DCE8F5" HorizontalAlignment="Center" Margin="0,3,0,0"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Transparent" BorderThickness="0" Padding="5" Click="Close_Click">
+                <StackPanel>
+                    <TextBlock Text="×" FontSize="25" Foreground="#A6B4C6" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Hide" FontSize="10" Foreground="#DCE8F5" HorizontalAlignment="Center" Margin="0,3,0,0"/>
                 </StackPanel>
             </Button>
         </UniformGrid>
