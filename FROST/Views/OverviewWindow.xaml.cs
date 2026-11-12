@@ -1,3 +1,4 @@
+using FROST.Core;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ public partial class OverviewWindow : Window
     public OverviewWindow()
     {
         InitializeComponent();
+        GlassEngine.ApplyTo(this);
         WindowList.ItemsSource = _windows;
         RefreshWindows();
     }
