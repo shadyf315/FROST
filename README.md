@@ -9,10 +9,12 @@ FROST is an experimental Windows desktop companion focused on a calm, winter-ins
 ### Implemented
 - **Desktop snowfall overlay** — transparent, click-through overlay spanning the virtual desktop.
 - **Snow controls** — change flake density and fall speed while the overlay is running.
+- **Mission Control** — live list of visible application windows; select one to switch to it.
+- **Global shortcuts** — `Ctrl + Alt + M` opens Mission Control; `Ctrl + Alt + N` toggles snowfall.
 - **Dashboard** — dark, glass-inspired application shell with navigation and quick controls.
 
 ### Planned
-- **Mission Control** — visual overview of open windows with quick switching.
+- **Mission Control previews** — live window thumbnails and a spatial overview.
 - **Glass Engine** — translucent, macOS Sequoia-inspired surfaces where Windows allows.
 - **Dock** — a customizable application launcher.
 - **Settings** — central control for effects, behavior, startup, and performance.
