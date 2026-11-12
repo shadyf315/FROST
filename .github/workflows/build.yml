@@ -1,4 +1,4 @@
-name: Build FROST
+name: Build and release FROST
 
 on:
   push:
@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 concurrency:
   group: frost-build-${{ github.ref }}
@@ -17,24 +20,74 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up .NET 10
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.0.x
 
+      - name: Read and validate application version
+        id: version
+        shell: pwsh
+        run: |
+          [xml]$project = Get-Content './FROST/FROST.csproj'
+          $version = [string]$project.Project.PropertyGroup.Version
+          if ($version -notmatch '^1\.0\.\d+$') {
+            throw "Version must follow the 1.0.N format. Current value: $version"
+          }
+          "version=$version" >> $env:GITHUB_OUTPUT
+
+      - name: Require the next sequential release number
+        if: github.event_name == 'push'
+        shell: pwsh
+        run: |
+          $version = "${{ steps.version.outputs.version }}"
+          $remoteTags = git ls-remote --tags origin 'refs/tags/v1.0.*'
+          $latestPatch = 0
+          foreach ($line in $remoteTags) {
+            if ($line -match 'refs/tags/v1\.0\.(\d+)$') {
+              $candidate = [int]$Matches[1]
+              if ($candidate -gt $latestPatch) { $latestPatch = $candidate }
+            }
+          }
+          $expectedPatch = $latestPatch + 1
+          $actualPatch = [int]($version.Split('.')[-1])
+          if ($actualPatch -ne $expectedPatch) {
+            throw "Next release must be 1.0.$expectedPatch. Change only the final version number."
+          }
+
       - name: Build WPF application
-        run: dotnet build .\FROST\FROST.csproj --configuration Release
+        run: dotnet build ./FROST/FROST.csproj --configuration Release -p:Version=${{ steps.version.outputs.version }}
 
       - name: Publish self-contained Windows x64 app
         if: github.event_name != 'pull_request'
-        run: dotnet publish .\FROST\FROST.csproj --configuration Release --runtime win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -o .\artifacts\FROST
+        run: dotnet publish ./FROST/FROST.csproj --configuration Release --runtime win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:Version=${{ steps.version.outputs.version }} -o ./artifacts/FROST
 
       - name: Upload Windows x64 build
         if: github.event_name != 'pull_request'
         uses: actions/upload-artifact@v4
         with:
-          name: FROST-win-x64
+          name: FROST-${{ steps.version.outputs.version }}-win-x64
           path: artifacts/FROST/
           if-no-files-found: error
           retention-days: 14
+
+      - name: Create release archive
+        if: github.event_name == 'push'
+        shell: pwsh
+        run: |
+          $archive = './artifacts/FROST-${{ steps.version.outputs.version }}-win-x64.zip'
+          Compress-Archive -Path './artifacts/FROST/*' -DestinationPath $archive -CompressionLevel Optimal -Force
+
+      - name: Publish GitHub release
+        if: github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: FROST ${{ steps.version.outputs.version }}
+          target_commitish: ${{ github.sha }}
+          prerelease: true
+          generate_release_notes: true
+          files: artifacts/FROST-${{ steps.version.outputs.version }}-win-x64.zip
