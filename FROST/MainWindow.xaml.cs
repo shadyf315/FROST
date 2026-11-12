@@ -1,14 +1,18 @@
 using System.Windows;
+using FROST.Core;
+using FROST.Views;
 
 namespace FROST;
 
 public partial class MainWindow : Window
 {
-    private bool _snowEnabled;
+    private readonly SnowEngine _snowEngine = new();
 
     public MainWindow()
     {
         InitializeComponent();
+        Closed += (_, _) => _snowEngine.Dispose();
+        UpdateSnowButton();
     }
 
     private void SetPage(string title, string subtitle, string eyebrow)
@@ -21,8 +25,13 @@ public partial class MainWindow : Window
     private void Overview_Click(object sender, RoutedEventArgs e) =>
         SetPage("Good evening.", "A calmer, more considered desktop starts here.", "YOUR WINDOWS, REIMAGINED");
 
-    private void Snow_Click(object sender, RoutedEventArgs e) =>
-        SetPage("Snowfall", "A dedicated space for the winter atmosphere engine.", "FROST / SNOW");
+    private void Snow_Click(object sender, RoutedEventArgs e)
+    {
+        SetPage("Snowfall", "Tune the atmosphere and bring a little winter to your desktop.", "FROST / SNOW");
+        var window = new SnowSettingsWindow(_snowEngine) { Owner = this };
+        window.ShowDialog();
+        UpdateSnowButton();
+    }
 
     private void MissionControl_Click(object sender, RoutedEventArgs e) =>
         SetPage("Mission Control", "Your open windows, brought together in one overview.", "FROST / WINDOW MANAGER");
@@ -35,14 +44,12 @@ public partial class MainWindow : Window
 
     private void ToggleSnow_Click(object sender, RoutedEventArgs e)
     {
-        _snowEnabled = !_snowEnabled;
-        SnowToggle.Content = _snowEnabled ? "Disable snowfall" : "Enable snowfall";
-        MessageBox.Show(
-            _snowEnabled
-                ? "Snowfall controls are ready for the next development step."
-                : "Snowfall preview has been switched off.",
-            "FROST",
-            MessageBoxButton.OK,
-            MessageBoxImage.Information);
+        _snowEngine.Toggle();
+        UpdateSnowButton();
+    }
+
+    private void UpdateSnowButton()
+    {
+        SnowToggle.Content = _snowEngine.IsEnabled ? "Disable snowfall" : "Enable snowfall";
     }
 }
